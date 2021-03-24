@@ -10,33 +10,40 @@ Overview of supported video/audio modes:
 
   * Resolutions: Lores, Hires, Superhires
   * Color modes:
-     * AGA0 - AGA8, 24 bit colors (requires ffmpeg)
-     * HAM6, HAM8, EHB (requires ham_convert)
+     - AGA0-AGA8, 24 bit colors (requires ffmpeg)
+     - OCS5-OCS3, 12 bit colors (requires ffmpeg) [V0.9.6+]
+     - HAM8, 24 bit colors (requires ham_convert)
+     - HAM6, EHB, 12 bit colors (requires ham_convert)
   * Audio
-    *  8-bit mono/stereo sound (requires ffmpeg)
-  * Encoding of CDXL videos: 12-bit and 24-bit color modes (uses agaconv-encode and requires png library)
+    -  8-bit mono/stereo sound (requires ffmpeg)
+  * Encoding of custom CDXL videos
+    - with 24-bit color palette and variable length frames (empty bitplanes are filtered, allowing for some simple "compression").
+    - allows any frequency
+  * Encoding of standard CDXL videos [V0.9.6+]
+    - with 12-bit color palette (color palette uses 2 bytes for each 12-bit color value, with 4 bit per RGB value).
+    - automatically adjusting the user-provided frequency (if necessary) such that all frames can have equal length and proper synchronization is maintained.
 
 ## How It Works
 
 AGAConv uses ffmpeg to extract video frames from various video
 formats, ffmpeg or ham_convert to convert extracted frames to PNG or
 IFF files, and agaconv-encode to encode a list of PNG or IFF files and
-an 8-bit PCM audio stream into a CDXL video. The CDXL video can played
+an 8-bit PCM audio stream into a CDXL video. The CDXL video can be played
 with [AGABlaster](https://mschordan.github.io/amiga/agablaster.html).
 
 ## Availability
 
-AGAConv was tested on Ubuntu 18.04 and on Windows 10 with Microsoft's Ubuntu app/terminal. The generated videos were tested on an Amiga 4000/60 with AGABlaster and Amiga OS 3.9 with original graphics and sound hardware.
+AGAConv was tested on Ubuntu 18.04 and on Windows 10 with Microsoft's Ubuntu app/terminal (there is no native Windows support). The generated videos were tested on an Amiga 4000/60 with AGABlaster and Amiga OS 3.9 with original graphics and sound hardware.
 
 * Binary distribution and video examples : [Website with downloads](https://mschordan.github.io/amiga/agaconv.html)
 
 ## Version
 
-Version: 0.9.5
+Version: 0.9.6.1
 
 ## Author
 
-Author: Markus Schordan, 2019-2020.
+Author: Markus Schordan, 2019-2021.
 
 ## Acknowledgments
 * Thanks to Jean Bollaërt for testing the pre-release version of AGAConv 0.9.4 on Windows 10 with Microsoft's Ubuntu app/terminal.
